@@ -1,0 +1,6 @@
+fastapi[standard]==0.112.0
+sqlalchemy[asyncio]
+asyncpg
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
