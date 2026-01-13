@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: logistics_db
+      POSTGRES_USER: logistics_user
+      POSTGRES_PASSWORD: logistics_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logistics_user -d logistics_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  liquibase:
+    image: liquibase/liquibase:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./db:/liquibase/changelog
+    command: [
+      "--defaultsFile=/liquibase/changelog/liquibase.properties",
+      "update"
+    ]
+    restart: "no"
+
+volumes:
+  pgdata:
