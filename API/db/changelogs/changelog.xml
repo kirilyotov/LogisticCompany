@@ -8,5 +8,15 @@
           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
           http://www.liquibase.org/xml/ns/pro
           http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-<!--    <include file="01-initial-schema.sql" relativeToChangelogFile="true" />-->
+    <include file="./tables/types.sql" relativeToChangelogFile="true" />
+    <include file="./functions/fn_set_updated_at.sql" relativeToChangelogFile="true" />
+    <include file="./functions/fn_log_status_change.sql" relativeToChangelogFile="true" />
+    <include file="./tables/companies.sql" relativeToChangelogFile="true" />
+    <include file="./tables/users.sql" relativeToChangelogFile="true" />
+    <include file="./tables/offices.sql" relativeToChangelogFile="true" />
+    <include file="./tables/shipments.sql" relativeToChangelogFile="true" />
+    <include file="./tables/shipment_status_history.sql" relativeToChangelogFile="true" />
+    <include file="./triggers/trg_set_updated_at.sql" relativeToChangelogFile="true" />
+    <include file="./triggers/trg_shipment_history_audit.sql" relativeToChangelogFile="true" />
+    <include file="./demo_data/01_initial_demo_data.sql" relativeToChangelogFile="true" />
 </databaseChangeLog>
