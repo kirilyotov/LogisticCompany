@@ -4,7 +4,7 @@
 CREATE TABLE users (
     id UUID DEFAULT gen_random_uuid(),
     company_id UUID,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     password_hash TEXT NOT NULL,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
