@@ -3,4 +3,5 @@ sqlalchemy[asyncio]
 asyncpg
 python-jose[cryptography]
 passlib[bcrypt]
+pydantic-settings
 python-dotenv
