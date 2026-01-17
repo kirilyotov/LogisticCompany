@@ -15,7 +15,7 @@ class JWTAuth:
         self.access_token_expire_minutes: int = get_settings().ACCESS_TOKEN_EXPIRE_MINUTES
         self.oauth2_scheme = OAuth2PasswordBearer(tokenUrl=get_settings().TOKEN_URL)
 
-    def create_access_token(self, data: Dict[str, Any], expires_delta: Optional[timedelta] = None):
+    def create_access_token(self, data: Dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.now(UTC) + expires_delta
@@ -40,13 +40,4 @@ class JWTAuth:
             )
 
 
-# jwt_auth = JWTAuth()
-#
-# def get_jwt_auth() -> JWTAuth:
-#     return jwt_auth
-#
-# def get_current_user(
-#     token: str = Depends(jwt_auth.oauth2_scheme),
-#     auth_service: JWTAuth = Depends(get_jwt_auth),
-# ) -> Dict[str, Any]:
-#     return auth_service.verify_token(token)
+jwt_auth = JWTAuth()
