@@ -1,4 +1,4 @@
-from .user import User
+from .user_model import User
 from .company import Company
 from .offices import Office
 from .shipments import Shipment

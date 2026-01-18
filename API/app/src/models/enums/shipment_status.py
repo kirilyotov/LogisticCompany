@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ShipmentStatus(Enum):
+class ShipmentStatus(str, Enum):
     CREATED = 'created'
     PENDING = 'pending'
     SENT = 'sent'
