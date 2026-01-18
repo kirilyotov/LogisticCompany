@@ -22,7 +22,7 @@ class ShipmentStatusHistory(Base):
             index=True
         )
     status: Mapped[ShipmentStatus] = mapped_column(
-            SAEnum(ShipmentStatus, name="shipment_status"),
+            SAEnum(ShipmentStatus, name="shipment_status", values_callable=lambda obj: [e.value for e in obj]),
             nullable=False
         )
     changed_by: Mapped[uuid.UUID | None] = mapped_column(

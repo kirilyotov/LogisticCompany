@@ -55,9 +55,9 @@ class Shipment(Base):
     is_to_office: Mapped[bool] = mapped_column(Boolean, server_default="true", nullable=True)
     
     current_status: Mapped[ShipmentStatus] = mapped_column(
-            SAEnum(ShipmentStatus, name="shipment_status"),
+            SAEnum(ShipmentStatus, name="shipment_status", values_callable=lambda obj: [e.value for e in obj]),
             nullable=True,
-            server_default=text("'created'")
+            server_default=text(f"'{ShipmentStatus.CREATED.value}'")
         )
     
     created_by: Mapped[uuid.UUID | None] = mapped_column(
