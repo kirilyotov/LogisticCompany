@@ -2,6 +2,7 @@ fastapi[standard]==0.112.0
 sqlalchemy[asyncio]
 asyncpg
 python-jose[cryptography]
-passlib[bcrypt]
+passlib[argon2]
+argon2-cffi
 pydantic-settings
 python-dotenv
