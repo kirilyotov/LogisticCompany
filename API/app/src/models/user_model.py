@@ -31,9 +31,9 @@ class User(Base):
     first_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     last_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     role: Mapped[UserRole] = mapped_column(
-            SAEnum(UserRole, name="user_role"),
+            SAEnum(UserRole, name="user_role", values_callable=lambda obj: [e.value for e in obj]),
             nullable=False,
-            server_default=text(UserRole.CLIENT.value)
+            server_default=text(f"'{UserRole.CLIENT.value}'")
         )
     created_at: Mapped[datetime] = mapped_column(
             DateTime(timezone=False),
