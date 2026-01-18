@@ -1,12 +1,19 @@
 from datetime import timedelta, datetime, UTC
 from typing import Dict, Any, Optional
+import logging
 
 from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
+from passlib.context import CryptContext
 
 from .config import get_settings
 
+# Configure logging
+logger = logging.getLogger(__name__)
+
+# Use argon2 for modern, secure password hashing
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 class JWTAuth:
     def __init__(self):
@@ -38,6 +45,12 @@ class JWTAuth:
                 detail="Could not validate credentials",
                 headers={"WWW-Authenticate": "Bearer"},
             )
+
+    def verify_password(self, plain_password: str, hashed_password: str) -> bool:
+        return pwd_context.verify(plain_password, hashed_password)
+
+    def get_password_hash(self, password: str) -> str:
+        return pwd_context.hash(password)
 
 
 jwt_auth = JWTAuth()
