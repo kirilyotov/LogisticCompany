@@ -4,5 +4,6 @@ asyncpg
 python-jose[cryptography]
 passlib[argon2]
 argon2-cffi
+injector
 pydantic-settings
 python-dotenv
