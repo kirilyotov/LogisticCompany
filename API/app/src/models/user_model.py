@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from API.app.src.db.base import Base
 from .enums import UserRole
 
-class User(Base):
+class UserModel(Base):
     __tablename__ = "users"
 
     id: Mapped[uuid.UUID] = mapped_column(

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from API.app.src.db.base import Base
 from .enums.shipment_status import ShipmentStatus
 
-class ShipmentStatusHistory(Base):
+class ShipmentStatusHistoryModel(Base):
     __tablename__ = "shipment_status_history"
 
     id: Mapped[uuid.UUID] = mapped_column(

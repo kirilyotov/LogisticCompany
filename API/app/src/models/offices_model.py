@@ -1,12 +1,12 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import String, UUID, text, DateTime, func
+from sqlalchemy import String, UUID, text, DateTime, func, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column
 from API.app.src.db.base import Base
 
-class Company(Base):
-    __tablename__ = "companies"
+class OfficeModel(Base):
+    __tablename__ = "offices"
 
     id: Mapped[uuid.UUID] = mapped_column(
             UUID(as_uuid=True),
@@ -14,8 +14,16 @@ class Company(Base):
             index=True,
             server_default=text("gen_random_uuid()")
         )
-    name: Mapped[str] = mapped_column(String(255), nullable=False)
-    vat_number: Mapped[str | None] = mapped_column(String(50), unique=True, nullable=True)
+    company_id: Mapped[uuid.UUID] = mapped_column(
+            UUID(as_uuid=True),
+            ForeignKey("companies.id", ondelete="CASCADE"),
+            nullable=False,
+            index=True
+        )
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    address: Mapped[str] = mapped_column(Text, nullable=False)
+    city: Mapped[str] = mapped_column(String(100), nullable=False)
+    country_code: Mapped[str] = mapped_column(String(2), nullable=False, server_default="BG")
     
     created_at: Mapped[datetime] = mapped_column(
             DateTime(timezone=False),
