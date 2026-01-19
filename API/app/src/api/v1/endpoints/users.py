@@ -1,25 +1,25 @@
 from fastapi import APIRouter, Depends, status
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Optional
+from uuid import UUID
 
-from API.app.src.db.database import get_db
 from API.app.src.services.user_service import UserService
 from API.app.src.schemas.user_schema import UserCreate, UserResponse
+from API.app.src.core.dependencies import get_user_service, get_current_user
+from API.app.src.models.user_model import UserModel
 
 router = APIRouter()
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def create_user(
     user_in: UserCreate,
-    db: AsyncSession = Depends(get_db)
+    service: UserService = Depends(get_user_service)
 ):
-    service = UserService(db)
     return await service.create_user(user_in)
-
 
 @router.get("/", response_model=list[UserResponse])
 async def get_users(
-    db: AsyncSession = Depends(get_db)
+    company_id: Optional[UUID] = None,
+    service: UserService = Depends(get_user_service),
+    current_user: UserModel = Depends(get_current_user)
 ):
-    service = UserService(db)
-    return await service.get_users()
-
+    return await service.get_users(current_user, company_id)
