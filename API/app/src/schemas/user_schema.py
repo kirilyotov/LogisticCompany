@@ -15,11 +15,12 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: SecretStr
 
-class UserUpdate(UserBase):
+class UserUpdate(BaseModel):
     password: Optional[SecretStr] = None
     first_name: Optional[str] = Field(None, max_length=100)
     last_name: Optional[str] = Field(None, max_length=100)
-
+    email: Optional[EmailStr] = None
+    role: Optional[UserRole] = None
 
 class UserResponse(BaseModel):
     id: UUID

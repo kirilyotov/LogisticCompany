@@ -71,7 +71,7 @@ The API uses **OAuth2 with Password Flow** (Bearer Token).
 | :--- | :--- | :--- | :--- |
 | `GET` | `/api/v1/users` | List users | **Super Admin** (All), **Admin** (Own Company) |
 | `POST` | `/api/v1/users` | Create a user (Admin/Employee) | **Super Admin** (Any), **Admin** (Own Company) |
-| `PATCH` | `/api/v1/users/{id}` | Update user profile | **User Themselves** Only |
+| `PATCH` | `/api/v1/users/{id}` | Update user profile or assign role | **User Themselves** (Own Profile), **Admin** (Own Company Users), **Super Admin** (Any) |
 | `DELETE` | `/api/v1/users/{id}` | Delete a user | **Super Admin** (Any), **Admin** (Own Company) |
 | `GET` | `/api/v1/users/employees` | List employees | **Super Admin** (All), **Admin** (Own Company) |
 | `GET` | `/api/v1/users/clients` | List clients | **Super Admin** (All), **Admin** (Own Company) |

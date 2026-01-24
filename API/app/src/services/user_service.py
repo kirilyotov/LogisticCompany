@@ -21,7 +21,6 @@ class UserService:
         self.repository = repository
 
     async def create_user(self, user_in: UserCreate, current_user: Optional[UserModel] = None) -> UserModel:
-        # Permission Check
         if current_user:
             if current_user.role == UserRole.CLIENT or current_user.role == UserRole.EMPLOYEE:
                  raise ForbiddenException("Not authorized to create users")
@@ -63,26 +62,45 @@ class UserService:
         return []
 
     async def update_user(self, user_id: UUID, user_in: UserUpdate, current_user: UserModel) -> UserModel:
-        if current_user.id != user_id:
-             raise ForbiddenException("Can only update your own profile")
-        
-        user = await self.repository.get_by_id(user_id)
-        if not user:
+        user_to_update = await self.repository.get_by_id(user_id)
+        if not user_to_update:
             raise UserNotFoundException()
 
-        if user_in.first_name:
-            user.first_name = user_in.first_name
-        if user_in.last_name:
-            user.last_name = user_in.last_name
-        if user_in.email:
-             if user_in.email != user.email:
-                 if await self.repository.get_by_email(user_in.email):
-                     raise BadRequestException("Email already taken")
-                 user.email = user_in.email
-        if user_in.password:
-            user.password_hash = jwt_auth.get_password_hash(user_in.password.get_secret_value())
+        update_data = user_in.model_dump(exclude_unset=True)
 
-        return await self.repository.update(user)
+        # Case 1: User is updating their own profile
+        if current_user.id == user_to_update.id:
+            if "role" in update_data and update_data["role"] != current_user.role:
+                raise ForbiddenException("Cannot change your own role")
+        
+        # Case 2: Admin is updating a user
+        elif current_user.role == UserRole.ADMIN:
+            if user_to_update.company_id != current_user.company_id:
+                raise ForbiddenException("Cannot update user from another company")
+            
+            # Admin can ONLY change the role
+            if any(field in update_data for field in ["email", "password", "first_name", "last_name"]):
+                raise ForbiddenException("Admin can only change a user's role")
+            
+            if "role" in update_data and update_data["role"] == UserRole.SUPER_ADMIN:
+                raise ForbiddenException("Cannot promote user to Super Admin")
+        
+        # Case 3: Super Admin is updating a user
+        elif current_user.role == UserRole.SUPER_ADMIN:
+            pass # Super Admin can do anything
+            
+        # Case 4: Not authorized
+        else:
+            raise ForbiddenException("Not authorized to update this user")
+
+        # Apply updates
+        for field, value in update_data.items():
+            if field == "password":
+                setattr(user_to_update, "password_hash", jwt_auth.get_password_hash(value.get_secret_value()))
+            else:
+                setattr(user_to_update, field, value)
+
+        return await self.repository.update(user_to_update)
 
     async def delete_user(self, user_id: UUID, current_user: UserModel):
         user = await self.repository.get_by_id(user_id)
