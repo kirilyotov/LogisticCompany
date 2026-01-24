@@ -25,8 +25,8 @@ DECLARE
 
     v_shipment_id UUID;
 
-    -- Valid bcrypt hash for 'password123'
-    v_password_hash TEXT := '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J.fGqGZ9y';
+    -- Valid bcrypt hash for 'password'
+    v_password_hash TEXT := '$argon2id$v=19$m=65536,t=3,p=4$XCul9J5TqvX+fw+htBaCcA$5PrPwUBwkOPY2rLsTO9dXBqgJxDfTYhh/lVS0c7mmmw';
 BEGIN
     -- 0. Create Super Admin
     INSERT INTO users (company_id, email, password_hash, first_name, last_name, role)
