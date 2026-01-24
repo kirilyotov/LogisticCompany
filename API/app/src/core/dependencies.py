@@ -10,6 +10,7 @@ from API.app.src.services.user_service import UserService
 from API.app.src.services.shipment_service import ShipmentService
 from API.app.src.services.company_service import CompanyService
 from API.app.src.services.offices_service import OfficeService
+from API.app.src.services.registration_service import RegistrationService
 from API.app.src.core.security import jwt_auth
 from API.app.src.models.user_model import UserModel
 
@@ -42,6 +43,9 @@ def get_company_service(container: Container = Depends(get_container)) -> Compan
 
 def get_office_service(container: Container = Depends(get_container)) -> OfficeService:
     return container.resolve(OfficeService)
+
+def get_registration_service(container: Container = Depends(get_container)) -> RegistrationService:
+    return container.resolve(RegistrationService)
 
 # --- Auth Dependencies ---
 

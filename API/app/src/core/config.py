@@ -13,12 +13,10 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    TOKEN_URL: str = "/auth/token"
+    TOKEN_URL: str = "/api/v1/auth/token"
     API_PORT: int = 8000
 
     DATABASE_URL : PostgresDsn
-    DB_USERNAME : str
-    DB_PASSWORD : str
 
 @lru_cache
 def get_settings() -> Settings:
