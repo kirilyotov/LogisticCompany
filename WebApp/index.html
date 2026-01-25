@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogiTrack Frontend</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand__logo">LT</span>
+          <div>
+            <h1 class="brand__title">LogiTrack</h1>
+            <p class="brand__subtitle">Operations Dashboard</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__link" href="#api">API Connection</a>
+          <a class="nav__link" href="#auth">Authentication</a>
+          <a class="nav__link" href="#shipments">Shipments</a>
+          <a class="nav__link" href="#employee">Employee</a>
+          <a class="nav__link" href="#admin">Admin</a>
+          <a class="nav__link" href="#notifications">Notifications</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          Built for university project use.
+        </div>
+      </aside>
+
+      <div class="content">
+        <header class="topbar">
+          <div>
+            <p class="topbar__eyebrow">Logistics Company</p>
+            <h2 class="topbar__title">Frontend Control Center</h2>
+          </div>
+          <div class="user-card">
+            <div>
+              <p class="user-card__label">Signed in as</p>
+              <p id="authUser" class="user-card__name">Not signed in</p>
+            </div>
+            <button id="logoutBtn" class="btn btn--ghost" type="button" disabled>
+              Log out
+            </button>
+          </div>
+        </header>
+
+        <main class="dashboard">
+          <section class="card-panel" id="api">
+            <div class="card-panel__header">
+              <h3>Title: System Connection</h3>
+              <p>
+                Description: This section allows the application to connect to the
+                central logistics system.
+              </p>
+            </div>
+            <div class="form-grid">
+              <div>
+                <label for="apiBaseUrl">API Base URL</label>
+                <input
+                  id="apiBaseUrl"
+                  type="url"
+                  placeholder="https://api.example.com"
+                />
+                <p class="helper">
+                  Helper text: Please enter the system address to access shipments,
+                  customers, and delivery information.
+                </p>
+              </div>
+              <div class="form-actions">
+                <button id="saveApiBtn" class="btn" type="button">
+                  Save API URL
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card-panel" id="auth">
+            <div class="card-panel__header">
+              <h3>Authentication</h3>
+              <p>Create accounts or sign in.</p>
+            </div>
+            <div class="grid grid--two">
+              <form id="registerForm" class="card">
+                <h4>Create Account</h4>
+                <label for="registerName">Full name</label>
+                <input id="registerName" name="name" required />
+
+                <label for="registerEmail">Email</label>
+                <input id="registerEmail" name="email" type="email" required />
+
+                <label for="registerPassword">Password</label>
+                <input
+                  id="registerPassword"
+                  name="password"
+                  type="password"
+                  minlength="6"
+                  required
+                />
+
+                <button class="btn" type="submit">Register</button>
+              </form>
+
+              <form id="loginForm" class="card">
+                <h4>Sign in</h4>
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" name="email" type="email" required />
+
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="password" type="password" required />
+
+                <button class="btn" type="submit">Log in</button>
+              </form>
+            </div>
+          </section>
+
+          <section class="card-panel" id="shipments">
+            <div class="card-panel__header">
+              <h3>Shipments</h3>
+              <p>Track and manage current shipments.</p>
+            </div>
+            <div class="toolbar">
+              <button id="refreshShipmentsBtn" class="btn btn--ghost" type="button">
+                Refresh shipments
+              </button>
+              <div class="toolbar__meta" id="shipmentScope">
+                Sign in to view shipments.
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Delivery</th>
+                    <th>Weight (kg)</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="shipmentsBody">
+                  <tr>
+                    <td colspan="7" class="empty">No shipments loaded.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="card-panel" id="employee" data-role="employee">
+            <div class="card-panel__header">
+              <h3>Employee Actions</h3>
+              <p>Create and update shipment records.</p>
+            </div>
+            <div class="grid grid--two">
+              <form id="createShipmentForm" class="card">
+                <h4>Create Shipment</h4>
+                <label for="sender">Sender</label>
+                <input id="sender" name="sender" required />
+
+                <label for="receiver">Receiver</label>
+                <input id="receiver" name="receiver" required />
+
+                <label for="deliveryType">Delivery type</label>
+                <select id="deliveryType" name="deliveryType" required>
+                  <option value="office">Office delivery</option>
+                  <option value="address">Exact address</option>
+                </select>
+
+                <label for="destination">Destination</label>
+                <input
+                  id="destination"
+                  name="destination"
+                  placeholder="Office name or address"
+                  required
+                />
+
+                <label for="weight">Weight (kg)</label>
+                <input id="weight" name="weight" type="number" min="0.1" step="0.1" required />
+
+                <div class="price-preview">
+                  Estimated price:
+                  <strong id="pricePreview">$0.00</strong>
+                </div>
+
+                <button class="btn" type="submit">Create shipment</button>
+              </form>
+
+              <form id="updateShipmentForm" class="card">
+                <h4>Register Shipment Status</h4>
+                <label for="shipmentId">Shipment ID</label>
+                <input id="shipmentId" name="shipmentId" required />
+
+                <label for="shipmentStatus">Status</label>
+                <select id="shipmentStatus" name="status" required>
+                  <option value="sent">Sent</option>
+                  <option value="received">Received</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+
+                <button class="btn" type="submit">Update status</button>
+              </form>
+            </div>
+          </section>
+
+          <section class="card-panel" id="admin" data-role="admin">
+            <div class="card-panel__header">
+              <h3>Administrator Console</h3>
+              <p>Manage employees, clients, and roles.</p>
+            </div>
+            <div class="toolbar">
+              <button id="refreshUsersBtn" class="btn btn--ghost" type="button">
+                Refresh users
+              </button>
+              <div class="toolbar__meta">Manage employees and clients.</div>
+            </div>
+
+            <div class="grid grid--two">
+              <form id="createEmployeeForm" class="card">
+                <h4>Add Employee</h4>
+                <label for="employeeName">Full name</label>
+                <input id="employeeName" name="name" required />
+
+                <label for="employeeEmail">Email</label>
+                <input id="employeeEmail" name="email" type="email" required />
+
+                <label for="employeePassword">Temporary password</label>
+                <input
+                  id="employeePassword"
+                  name="password"
+                  type="password"
+                  minlength="6"
+                  required
+                />
+
+                <button class="btn" type="submit">Create employee</button>
+              </form>
+
+              <div class="card">
+                <h4>Users</h4>
+                <div class="table-wrapper table-wrapper--compact">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="usersBody">
+                      <tr>
+                        <td colspan="4" class="empty">No users loaded.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card-panel" id="notifications">
+            <div class="card-panel__header">
+              <h3>Notifications</h3>
+              <p>Status updates and system messages.</p>
+            </div>
+            <div id="messageArea" class="message message--info">
+              Ready.
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <footer class="footer">
+      Built for university use.
+    </footer>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
