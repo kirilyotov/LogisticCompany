@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from uuid import UUID
 
-from API.app.src.services.offices_service import OfficeService
-from API.app.src.schemas.office import OfficeCreate, OfficeResponse
-from API.app.src.core.dependencies import get_office_service, get_current_user
-from API.app.src.models.user_model import UserModel
+from src.services.offices_service import OfficeService
+from src.schemas.office import OfficeCreate, OfficeResponse
+from src.core.dependencies import get_office_service, get_current_user
+from src.models.user_model import UserModel
 
 router = APIRouter()
 

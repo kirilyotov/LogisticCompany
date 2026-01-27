@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy import String, Enum as SAEnum, ForeignKey, UUID, text, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
-from API.app.src.db.base import Base
+from src.db.base import Base
 from .enums import UserRole
 
 class UserModel(Base):

@@ -5,14 +5,14 @@ from fastapi import HTTPException, status
 from injector import inject
 from decimal import Decimal
 
-from API.app.src.repositories.company_repository import CompanyRepository
-from API.app.src.repositories.shipment_repository import ShipmentRepository
-from API.app.src.schemas.company import CompanyCreate
-from API.app.src.models.company_model import CompanyModel
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
-from API.app.src.models.enums.shipment_status import ShipmentStatus
-from API.app.src.core.exceptions import (
+from src.repositories.company_repository import CompanyRepository
+from src.repositories.shipment_repository import ShipmentRepository
+from src.schemas.company import CompanyCreate
+from src.models.company_model import CompanyModel
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
+from src.models.enums.shipment_status import ShipmentStatus
+from src.core.exceptions import (
     CompanyAlreadyExistsException,
     CompanyNotFoundException,
     ForbiddenException

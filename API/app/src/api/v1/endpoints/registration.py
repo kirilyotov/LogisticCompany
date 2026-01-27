@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, status
 from uuid import UUID
 
-from API.app.src.services.registration_service import RegistrationService
-from API.app.src.schemas.registration import OrganizationRegister, CompanyUserRegister
-from API.app.src.schemas.user_schema import UserResponse
-from API.app.src.schemas.company import CompanyResponse
-from API.app.src.core.dependencies import get_registration_service
+from src.services.registration_service import RegistrationService
+from src.schemas.registration import OrganizationRegister, CompanyUserRegister
+from src.schemas.user_schema import UserResponse
+from src.schemas.company import CompanyResponse
+from src.core.dependencies import get_registration_service
 
 router = APIRouter()
 

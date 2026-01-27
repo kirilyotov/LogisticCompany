@@ -3,10 +3,10 @@ from uuid import UUID
 from datetime import datetime
 from decimal import Decimal
 
-from API.app.src.services.company_service import CompanyService
-from API.app.src.schemas.company import CompanyCreate, CompanyResponse, CompanyPublicResponse
-from API.app.src.core.dependencies import get_company_service, get_current_user
-from API.app.src.models.user_model import UserModel
+from src.services.company_service import CompanyService
+from src.schemas.company import CompanyCreate, CompanyResponse, CompanyPublicResponse
+from src.core.dependencies import get_company_service, get_current_user
+from src.models.user_model import UserModel
 
 router = APIRouter()
 

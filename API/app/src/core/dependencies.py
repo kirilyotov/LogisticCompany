@@ -4,15 +4,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from injector import Injector
 from jose import JWTError
 
-from API.app.src.db.database import get_db
-from API.app.src.core.containers import AppModule
-from API.app.src.services.user_service import UserService
-from API.app.src.services.shipment_service import ShipmentService
-from API.app.src.services.company_service import CompanyService
-from API.app.src.services.offices_service import OfficeService
-from API.app.src.services.registration_service import RegistrationService
-from API.app.src.core.security import jwt_auth
-from API.app.src.models.user_model import UserModel
+from src.db.database import get_db
+from src.core.containers import AppModule
+from src.services.user_service import UserService
+from src.services.shipment_service import ShipmentService
+from src.services.company_service import CompanyService
+from src.services.offices_service import OfficeService
+from src.services.registration_service import RegistrationService
+from src.core.security import jwt_auth
+from src.models.user_model import UserModel
 
 class Container:
     """

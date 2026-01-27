@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from API.app.src.core import get_settings
+from src.core import get_settings
 
 # Ensure URL uses asyncpg driver
 database_url = str(get_settings().DATABASE_URL)

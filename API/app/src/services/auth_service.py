@@ -2,9 +2,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 from datetime import timedelta
 
-from API.app.src.repositories.user_repository import UserRepository
-from API.app.src.core.security import jwt_auth
-from API.app.src.schemas.token import Token
+from src.repositories.user_repository import UserRepository
+from src.core.security import jwt_auth
+from src.schemas.token import Token
 
 class AuthService:
     def __init__(self, db: AsyncSession):

@@ -5,8 +5,8 @@ from typing import Optional, Sequence
 from datetime import datetime
 from injector import inject
 
-from API.app.src.models.shipments_model import ShipmentModel as Shipment
-from API.app.src.models.enums.shipment_status import ShipmentStatus
+from src.models.shipments_model import ShipmentModel as Shipment
+from src.models.enums.shipment_status import ShipmentStatus
 
 class ShipmentRepository:
     @inject

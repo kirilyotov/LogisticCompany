@@ -4,7 +4,7 @@ from uuid import UUID
 from typing import Optional, Sequence
 from injector import inject
 
-from API.app.src.models.company_model import CompanyModel as Company
+from src.models.company_model import CompanyModel as Company
 
 class CompanyRepository:
     @inject

@@ -2,12 +2,12 @@ from uuid import UUID
 from typing import Sequence
 from injector import inject
 
-from API.app.src.repositories.office_repository import OfficeRepository
-from API.app.src.schemas.office import OfficeCreate
-from API.app.src.models.offices_model import OfficeModel as Office
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
-from API.app.src.core.exceptions import (
+from src.repositories.office_repository import OfficeRepository
+from src.schemas.office import OfficeCreate
+from src.models.offices_model import OfficeModel as Office
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
+from src.core.exceptions import (
     OfficeNotFoundException,
     ForbiddenException
 )

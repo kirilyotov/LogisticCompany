@@ -3,7 +3,7 @@ from uuid import UUID
 from typing import Optional
 from datetime import datetime
 
-from API.app.src.models.enums.shipment_status import ShipmentStatus
+from src.models.enums.shipment_status import ShipmentStatus
 
 class ShipmentStatusHistoryBase(BaseModel):
     shipment_id: UUID

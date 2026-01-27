@@ -4,7 +4,7 @@ from typing import Optional
 from decimal import Decimal
 from datetime import datetime
 
-from API.app.src.models.enums.shipment_status import ShipmentStatus
+from src.models.enums.shipment_status import ShipmentStatus
 
 class ShipmentBase(BaseModel):
     company_id: UUID

@@ -7,8 +7,8 @@ from uuid import UUID
 import logging
 from injector import inject
 
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
 
 logger = logging.getLogger(__name__)
 

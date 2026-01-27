@@ -3,7 +3,7 @@ from fastapi import Request, FastAPI
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
-from API.app.src.core.exceptions import (
+from src.core.exceptions import (
     NotFoundException,
     BadRequestException,
     ForbiddenException,

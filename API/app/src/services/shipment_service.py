@@ -4,14 +4,14 @@ from typing import Sequence, Optional
 from injector import inject
 from decimal import Decimal
 
-from API.app.src.repositories.shipment_repository import ShipmentRepository
-from API.app.src.repositories.shipment_status_history_repository import ShipmentStatusHistoryRepository
-from API.app.src.schemas.shipment import ShipmentStatusUpdate, ShipmentCreate
-from API.app.src.models.shipments_model import ShipmentModel
-from API.app.src.models.shipment_status_history_model import ShipmentStatusHistoryModel
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
-from API.app.src.core.exceptions import (
+from src.repositories.shipment_repository import ShipmentRepository
+from src.repositories.shipment_status_history_repository import ShipmentStatusHistoryRepository
+from src.schemas.shipment import ShipmentStatusUpdate, ShipmentCreate
+from src.models.shipments_model import ShipmentModel
+from src.models.shipment_status_history_model import ShipmentStatusHistoryModel
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
+from src.core.exceptions import (
     ShipmentNotFoundException,
     ForbiddenException
 )

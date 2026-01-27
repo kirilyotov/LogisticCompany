@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy import String, UUID, text, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
-from API.app.src.db.base import Base
+from src.db.base import Base
 
 class CompanyModel(Base):
     __tablename__ = "companies"
@@ -15,7 +15,6 @@ class CompanyModel(Base):
             server_default=text("gen_random_uuid()")
         )
     name: Mapped[str] = mapped_column(String(255), nullable=False)
-    vat_number: Mapped[str | None] = mapped_column(String(50), unique=True, nullable=True)
     
     created_at: Mapped[datetime] = mapped_column(
             DateTime(timezone=False),

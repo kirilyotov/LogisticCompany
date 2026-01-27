@@ -3,7 +3,7 @@ from uuid import UUID
 from datetime import datetime
 from typing import Optional
 
-from API.app.src.models.enums.user_role import UserRole
+from src.models.enums.user_role import UserRole
 
 class UserBase(BaseModel):
     email: EmailStr

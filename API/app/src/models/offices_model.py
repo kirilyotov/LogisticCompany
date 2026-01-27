@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy import String, UUID, text, DateTime, func, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column
-from API.app.src.db.base import Base
+from src.db.base import Base
 
 class OfficeModel(Base):
     __tablename__ = "offices"

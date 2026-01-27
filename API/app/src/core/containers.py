@@ -1,10 +1,10 @@
 from injector import Module, provider, Injector, singleton
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from API.app.src.repositories.user_repository import UserRepository
-from API.app.src.repositories.shipment_repository import ShipmentRepository
-from API.app.src.services.user_service import UserService
-from API.app.src.services.shipment_service import ShipmentService
+from src.repositories.user_repository import UserRepository
+from src.repositories.shipment_repository import ShipmentRepository
+from src.services.user_service import UserService
+from src.services.shipment_service import ShipmentService
 
 class AppModule(Module):
     def __init__(self, db: AsyncSession):

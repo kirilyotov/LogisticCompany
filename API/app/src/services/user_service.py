@@ -3,12 +3,12 @@ from injector import inject
 from typing import Sequence, Optional
 from uuid import UUID
 
-from API.app.src.repositories.user_repository import UserRepository
-from API.app.src.schemas.user_schema import UserCreate, UserUpdate
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
-from API.app.src.core.security import jwt_auth
-from API.app.src.core.exceptions import (
+from src.repositories.user_repository import UserRepository
+from src.schemas.user_schema import UserCreate, UserUpdate
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
+from src.core.security import jwt_auth
+from src.core.exceptions import (
     UserAlreadyExistsException,
     UserNotFoundException,
     ForbiddenException,

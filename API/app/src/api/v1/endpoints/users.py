@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, status
 from typing import Optional
 from uuid import UUID
 
-from API.app.src.services.user_service import UserService
-from API.app.src.schemas.user_schema import UserCreate, UserResponse, UserUpdate
-from API.app.src.core.dependencies import get_user_service, get_current_user
-from API.app.src.models.user_model import UserModel
-from API.app.src.models.enums.user_role import UserRole
+from src.services.user_service import UserService
+from src.schemas.user_schema import UserCreate, UserResponse, UserUpdate
+from src.core.dependencies import get_user_service, get_current_user
+from src.models.user_model import UserModel
+from src.models.enums.user_role import UserRole
 
 router = APIRouter()
 

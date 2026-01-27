@@ -4,7 +4,7 @@ from uuid import UUID
 from typing import Sequence
 from injector import inject
 
-from API.app.src.models.shipment_status_history_model import ShipmentStatusHistoryModel
+from src.models.shipment_status_history_model import ShipmentStatusHistoryModel
 
 class ShipmentStatusHistoryRepository:
     @inject

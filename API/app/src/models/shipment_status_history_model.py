@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy import String, UUID, text, DateTime, func, ForeignKey, Text, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column
-from API.app.src.db.base import Base
+from src.db.base import Base
 from .enums.shipment_status import ShipmentStatus
 
 class ShipmentStatusHistoryModel(Base):

@@ -3,11 +3,11 @@ from uuid import UUID
 from typing import Optional
 from datetime import datetime
 
-from API.app.src.services.shipment_service import ShipmentService
-from API.app.src.schemas.shipment import ShipmentStatusUpdate, ShipmentCreate, ShipmentResponse
-from API.app.src.schemas.shipment_status_history import ShipmentStatusHistoryResponse
-from API.app.src.core.dependencies import get_shipment_service, get_current_user
-from API.app.src.models.user_model import UserModel
+from src.services.shipment_service import ShipmentService
+from src.schemas.shipment import ShipmentStatusUpdate, ShipmentCreate, ShipmentResponse
+from src.schemas.shipment_status_history import ShipmentStatusHistoryResponse
+from src.core.dependencies import get_shipment_service, get_current_user
+from src.models.user_model import UserModel
 
 router = APIRouter()
 

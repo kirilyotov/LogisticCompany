@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI
-from API.app.src.api.v1.routers import api_router
-from API.app.src.core.exception_handlers import ExceptionHandlers
+from src.api.v1.routers import api_router
+from src.core.exception_handlers import ExceptionHandlers
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

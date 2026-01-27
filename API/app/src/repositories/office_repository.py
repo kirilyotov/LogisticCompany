@@ -4,7 +4,7 @@ from uuid import UUID
 from typing import Optional, Sequence
 from injector import inject
 
-from API.app.src.models.offices_model import OfficeModel as Office
+from src.models.offices_model import OfficeModel as Office
 
 class OfficeRepository:
     @inject
