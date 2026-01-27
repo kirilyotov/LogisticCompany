@@ -1,6 +1,7 @@
 from uuid import UUID
 from typing import Sequence, Optional
 from datetime import datetime
+from fastapi import HTTPException, status
 from injector import inject
 from decimal import Decimal
 
@@ -76,6 +77,12 @@ class CompanyService:
 
     async def get_revenue(self, company_id: UUID, start_date: datetime, end_date: datetime, current_user: UserModel) -> Decimal:
         await self.get_company(company_id, current_user)
+        
+        # Ensure datetimes are naive (remove timezone) to match DB column type
+        if start_date.tzinfo is not None:
+            start_date = start_date.replace(tzinfo=None)
+        if end_date.tzinfo is not None:
+            end_date = end_date.replace(tzinfo=None)
         
         shipments = await self.shipment_repo.get_all(
             company_id=company_id,

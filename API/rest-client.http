@@ -1,0 +1,230 @@
+# REST Client requests for LogisticCompany API
+# Requires VS Code REST Client extension (humao.rest-client).
+# Set your base URL and credentials once, then run requests individually.
+
+@baseUrl = http://localhost:8000
+@adminEmail = super@logistics.com
+@adminPassword = password
+@companyId = 043bdb3b-c285-461a-aea4-bbb8339cbe89
+@userId = 00000000-0000-0000-0000-000000000000
+@officeId = 00000000-0000-0000-0000-000000000000
+@shipmentId = 34f47d4f-b41d-42ed-a31f-ec31048630b6
+@startDate = 2024-01-01T00:00:00Z
+@endDate = 2026-12-31T23:59:59Z
+@access_token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdXBlckBsb2dpc3RpY3MuY29tIiwicm9sZSI6InN1cGVyX2FkbWluIiwidXNlcl9pZCI6IjBmM2Q4ZDAzLTdhYzUtNDgxYi05ZGFkLTk0NjkzYWQyZjkwYSIsImV4cCI6MTc2OTUwMTY5M30.3P_acE5uW-VbiGRxa67-LINzgqTsUTRBeuDAm4_sMUA
+
+### Obtain access token
+# Stores access_token into {{access_token}} for reuse.
+POST {{baseUrl}}/api/v1/auth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username={{adminEmail}}&password={{adminPassword}}&scope=
+
+> {% client.global.set("access_token", response.body.access_token); %}
+
+### Register organization (creates company + admin)
+POST {{baseUrl}}/api/v1/register/organization
+Content-Type: application/json
+
+{
+  "company_name": "Demo Logistics",
+  "company_vat": "BG123456789",
+  "admin_email": "{{adminEmail}}",
+  "admin_password": "{{adminPassword}}",
+  "admin_first_name": "Ada",
+  "admin_last_name": "Lovelace"
+}
+
+### Register user to company (after org creation)
+POST {{baseUrl}}/api/v1/register/company/{{companyId}}/user
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "password": "Password123!",
+  "first_name": "First",
+  "last_name": "Last"
+}
+
+### Create user (auth required)
+POST {{baseUrl}}/api/v1/users/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "email": "employee1@example.com",
+  "password": "Password123!",
+  "first_name": "Eve",
+  "last_name": "Worker",
+  "role": "employee",
+  "company_id": "{{companyId}}"
+}
+
+### List users (auth required)
+GET {{baseUrl}}/api/v1/users/
+Authorization: Bearer {{access_token}}
+
+### Update user (auth required)
+PATCH {{baseUrl}}/api/v1/users/{{userId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "first_name": "Updated",
+  "last_name": "Name",
+  "role": "employee"
+}
+
+### Delete user (auth required)
+DELETE {{baseUrl}}/api/v1/users/{{userId}}
+Authorization: Bearer {{access_token}}
+
+### Get companies (auth required)
+GET {{baseUrl}}/api/v1/companies
+Authorization: Bearer {{access_token}}
+
+### Create company (auth required)
+POST {{baseUrl}}/api/v1/companies/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "New Company",
+  "vat_number": "BG000000000"
+}
+
+### Get company by id (auth required)
+GET {{baseUrl}}/api/v1/companies/{{companyId}}
+Authorization: Bearer {{access_token}}
+
+### Update company (auth required)
+PUT {{baseUrl}}/api/v1/companies/{{companyId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Company",
+  "vat_number": "BG111111111"
+}
+
+### Delete company (auth required)
+DELETE {{baseUrl}}/api/v1/companies/{{companyId}}
+Authorization: Bearer {{access_token}}
+
+### Get company revenue (auth required)
+GET {{baseUrl}}/api/v1/companies/{{companyId}}/revenue?start_date={{startDate}}&end_date={{endDate}}
+Authorization: Bearer {{access_token}}
+
+### Get public company info (no auth)
+GET {{baseUrl}}/api/v1/companies/{{companyId}}/public
+
+### List offices (public)
+GET {{baseUrl}}/api/v1/offices/
+
+### Create office (auth required)
+POST {{baseUrl}}/api/v1/offices/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "HQ",
+  "address": "1 Main St",
+  "city": "Sofia",
+  "country_code": "BG",
+  "company_id": "{{companyId}}"
+}
+
+### Get office by id (public)
+GET {{baseUrl}}/api/v1/offices/{{officeId}}
+
+### Update office (auth required)
+PUT {{baseUrl}}/api/v1/offices/{{officeId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "HQ Updated",
+  "address": "2 Main St",
+  "city": "Sofia",
+  "country_code": "BG",
+  "company_id": "{{companyId}}"
+}
+
+### Delete office (auth required)
+DELETE {{baseUrl}}/api/v1/offices/{{officeId}}
+Authorization: Bearer {{access_token}}
+
+### Create shipment (auth required)
+POST {{baseUrl}}/api/v1/shipments/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "company_id": "{{companyId}}",
+  "sender_id": "{{userId}}",
+  "receiver_id": "{{userId}}",
+  "origin_office_id": "{{officeId}}",
+  "destination_office_id": "{{officeId}}",
+  "delivery_address": "42 Example Blvd",
+  "weight": 1.5,
+  "price": 19.99,
+  "is_to_office": true
+}
+
+### List shipments (auth required)
+GET {{baseUrl}}/api/v1/shipments/
+Authorization: Bearer {{access_token}}
+
+### Get shipment by id (auth required)
+GET {{baseUrl}}/api/v1/shipments/{{shipmentId}}
+Authorization: Bearer {{access_token}}
+
+### Update shipment (auth required)
+PUT {{baseUrl}}/api/v1/shipments/{{shipmentId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "company_id": "{{companyId}}",
+  "sender_id": "{{userId}}",
+  "receiver_id": "{{userId}}",
+  "origin_office_id": "{{officeId}}",
+  "destination_office_id": "{{officeId}}",
+  "delivery_address": "42 Example Blvd",
+  "weight": 2.0,
+  "price": 24.99,
+  "is_to_office": true
+}
+
+### Delete shipment (auth required)
+DELETE {{baseUrl}}/api/v1/shipments/{{shipmentId}}
+Authorization: Bearer {{access_token}}
+
+### Update shipment status (auth required)
+PATCH {{baseUrl}}/api/v1/shipments/{{shipmentId}}/status
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "status": "in_transit"
+}
+
+### Get shipment history (auth required)
+GET {{baseUrl}}/api/v1/shipments/{{shipmentId}}/history
+Authorization: Bearer {{access_token}}
+
+### Shipments by employee (auth required)
+GET {{baseUrl}}/api/v1/shipments/employee/{{userId}}
+Authorization: Bearer {{access_token}}
+
+### Shipments by company (auth required)
+GET {{baseUrl}}/api/v1/shipments/company/{{companyId}}
+Authorization: Bearer {{access_token}}
+
+### Shipments sent by client (auth required)
+GET {{baseUrl}}/api/v1/shipments/client/{{userId}}/sent
+Authorization: Bearer {{access_token}}
+
+### Shipments received by client (auth required)
+GET {{baseUrl}}/api/v1/shipments/client/{{userId}}/received
+Authorization: Bearer {{access_token}}

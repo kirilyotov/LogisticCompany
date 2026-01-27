@@ -63,7 +63,9 @@ class UserRepository:
                     UserModel.first_name, 
                     UserModel.last_name, 
                     UserModel.role, 
-                    UserModel.company_id
+                    UserModel.company_id,
+                    UserModel.created_at,  # Added
+                    UserModel.updated_at   # Added
                 )
             )
             
