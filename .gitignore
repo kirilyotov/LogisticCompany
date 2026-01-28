@@ -209,3 +209,5 @@ __marimo__/
 .idea/
 .python-version
 pgdata/
+documentation/
+.agent/
